@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile | CareerFlow
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+
+
+                <div class="text-center">
+
+
+                    {% if profile.profile_photo %}
+
+                    <img src="{{ profile.profile_photo.url }}"
+                         class="rounded-circle mb-3 shadow"
+                         width="130"
+                         height="130"
+                         style="object-fit: cover;">
+
+
+                    {% else %}
+
+
+                    <img src="/static/images/default.png"
+                         class="rounded-circle mb-3 shadow"
+                         width="130"
+                         height="130">
+
+
+                    {% endif %}
+
+
+                    <h3 class="fw-bold">
+                        {{ request.user.username }}
+                    </h3>
+
+
+                    <p class="text-muted">
+                        {{ request.user.email }}
+                    </p>
+
+
+                </div>
+
+
+
+                <hr>
+
+
+
+                <h4 class="mb-4">
+                    👤 Update Profile
+                </h4>
+
+
+
+                <form method="POST"
+                      enctype="multipart/form-data">
+
+
+                    {% csrf_token %}
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Profile Photo
+                        </label>
+
+                        {{ form.profile_photo }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone
+                        </label>
+
+                        {{ form.phone }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Address
+                        </label>
+
+                        {{ form.address }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Education
+                        </label>
+
+                        {{ form.education }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Skills
+                        </label>
+
+                        {{ form.skills }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            LinkedIn
+                        </label>
+
+                        {{ form.linkedin }}
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            GitHub
+                        </label>
+
+                        {{ form.github }}
+
+                    </div>
+                    <p><strong>Role:</strong> {{ profile.role }}</p>
+
+                    {% if profile.role == "HR" %}
+
+                    <div class="mb-3">
+
+                                <label class="form-label">
+                                    Company
+                                </label>
+
+                                {{ form.company }}
+
+                                <small class="text-muted">
+                                    HR users only.
+                                </small>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+
+                        <i class="bi bi-save"></i>
+                        Save Profile
+
+                    </button>
+
+
+                </form>
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Resume Builder | CareerFlow
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">
+                        📄 Resume Builder
+                    </h2>
+
+                    <p class="text-muted">
+                        Create and manage your professional resume
+                    </p>
+                </div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        {{ form.phone }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Professional Summary</label>
+                        {{ form.summary }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Education</label>
+                        {{ form.education }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Skills</label>
+                        {{ form.skills }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Projects</label>
+                        {{ form.projects }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Experience / Internship</label>
+                        {{ form.experience }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">LinkedIn</label>
+                        {{ form.linkedin }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">GitHub</label>
+                        {{ form.github }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-save"></i>
+                        Save Resume
+                    </button>
+                    <a href="{% url 'resume_preview' %}"
+                        class="btn btn-success w-100 mt-3">
+                            <i class="bi bi-eye"></i>
+                            Preview Resume
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

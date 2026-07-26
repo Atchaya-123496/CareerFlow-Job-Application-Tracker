@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Candidate Details{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header">
+            <h3>Candidate Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <p><strong>Username:</strong> {{ job.user.username }}</p>
+            <p><strong>Email:</strong> {{ job.user.email }}</p>
+
+            <hr>
+
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>Education:</strong> {{ profile.education }}</p>
+            <p><strong>Skills:</strong> {{ profile.skills }}</p>
+
+            <hr>
+
+            <p><strong>Company:</strong> {{ job.company_name }}</p>
+            <p><strong>Job Role:</strong> {{ job.job_role }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Salary:</strong> {{ job.salary }}</p>
+            <p><strong>Status:</strong> {{ job.status }}</p>
+
+            <hr>
+            <hr>
+
+                <h5>Update Application Status</h5>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Change Status
+                        </label>
+
+                        <select name="status" class="form-select">
+
+                            {% for value, label in job.STATUS_CHOICES %}
+
+                                <option value="{{ value }}"
+                                    {% if job.status == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                        <div class="mb-3">
+                                    <label class="form-label">
+                                        Interview Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="interview_date"
+                                        class="form-control"
+                                        value="{{ job.interview_date|date:'Y-m-d' }}">
+                        </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Interview Time
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        name="interview_time"
+                                        class="form-control"
+                                        value="{{ job.interview_time|time:'H:i' }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Meeting Link
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        name="interview_link"
+                                        class="form-control"
+                                        placeholder="https://meet.google.com/..."
+                                        value="{{ job.interview_link }}">
+                                </div>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-success">
+
+                        Update Status
+
+                    </button>
+
+                </form>
+            {% if job.status == "Selected" %}
+
+            <hr>
+
+            <h5>Upload Offer Letter</h5>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Offer Letter (PDF)
+                        </label>
+
+                        <input
+                            type="file"
+                            name="offer_letter"
+                            class="form-control">
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Upload Offer Letter
+
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+
+            {% if job.resume %}
+                <a href="{{ job.resume.url }}"
+                   class="btn btn-primary"
+                   target="_blank">
+                    View Resume
+                </a>
+            {% else %}
+                <p>No resume uploaded.</p>
+            {% endif %}
+
+            <a href="{% url 'hr_dashboard' %}"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

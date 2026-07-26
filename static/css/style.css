@@ -1,0 +1,61 @@
+body{
+    background:#f8f9fa;
+    font-family:Arial, sans-serif;
+}
+
+.navbar-brand{
+    font-size:1.6rem;
+    font-weight:bold;
+}
+
+.nav-link{
+    font-weight:600;
+}
+
+.nav-link:hover{
+    color:#ffd43b !important;
+}
+
+.btn-primary{
+    padding:12px 30px;
+    border-radius:30px;
+}
+
+.display-4{
+    margin-top:100px;
+    color:#0d6efd;
+}
+.hero{
+    padding:80px 20px;
+}
+
+.card{
+    border:none;
+    border-radius:20px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.btn{
+    border-radius:30px;
+}
+.card{
+    border-radius:20px;
+}
+
+.form-control{
+    border-radius:12px;
+    padding:12px;
+}
+
+.btn-primary{
+    border-radius:12px;
+    font-weight:bold;
+}
+
+label{
+    font-weight:600;
+}

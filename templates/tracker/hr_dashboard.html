@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}HR Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>HR Dashboard</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Candidate</th>
+                <th>Company</th>
+                <th>Job Role</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for job in jobs %}
+
+            <tr>
+                <td>{{ job.user.username }}</td>
+                <td>{{ job.company_name }}</td>
+                <td>{{ job.job_role }}</td>
+                <td>{{ job.status }}</td>
+
+                <td>
+                    <a href="{% url 'view_candidate' job.id %}">
+                        🔍 View Candidate
+                    </a>
+                </td>
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="4">No applications found.</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

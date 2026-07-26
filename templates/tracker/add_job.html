@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Job{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+
+                <h2 class="text-center mb-4">
+                    ➕ Add New Job
+                </h2>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label>Company Name</label>
+                        {{ form.company_name }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Job Role</label>
+                        {{ form.job_role }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Location</label>
+                        {{ form.location }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Salary</label>
+                        {{ form.salary }}
+                    </div>
+
+                    
+
+                    <div class="mb-3">
+                        <label>Upload Resume</label>
+                        {{ form.resume }}
+                    </div>
+                    <div class="mb-3">
+                        <label>Applied Date</label>
+                        {{ form.applied_date }}
+                    </div>
+
+                    
+
+                    
+
+                    <button class="btn btn-success w-100">
+                        Save Job
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

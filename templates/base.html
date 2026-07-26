@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}CareerFlow{% endblock %}
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+
+</head>
+
+
+<body class="bg-light">
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+
+    <div class="container">
+
+
+        <!-- Logo -->
+
+        <a class="navbar-brand fw-bold fs-4"
+           href="{% url 'home' %}">
+
+            <i class="bi bi-briefcase-fill"></i>
+            CareerFlow
+
+        </a>
+
+
+
+        <!-- Mobile Hamburger -->
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+
+        <!-- Menu -->
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- Home -->
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="{% url 'home' %}">
+
+                        <i class="bi bi-house"></i>
+                        Home
+
+                    </a>
+
+                </li>
+                
+                {% if user.is_authenticated %}
+
+                    {% if user.userprofile.role == "HR" %}
+
+                        <!-- HR Dashboard -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'hr_dashboard' %}">
+                                <i class="bi bi-speedometer2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <!-- Notifications -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'notifications' %}">
+                                <i class="bi bi-bell"></i>
+                                Notifications
+                            </a>
+                        </li>
+
+                        <!-- Profile -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <i class="bi bi-person-circle"></i>
+                                Profile
+                            </a>
+                        </li>
+
+                    {% else %}
+
+                        <!-- Candidate Jobs -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">
+                                <i class="bi bi-briefcase"></i>
+                                Jobs
+                            </a>
+                        </li>
+
+                        <!-- Resume -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'resume' %}">
+                                <i class="bi bi-file-earmark-text"></i>
+                                Resume
+                            </a>
+                        </li>
+
+                        <!-- Profile -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <i class="bi bi-person-circle"></i>
+                                Profile
+                            </a>
+                        </li>
+
+                        <!-- Notifications -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'notifications' %}">
+                                <i class="bi bi-bell"></i>
+                                Notifications
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+                    <!-- Account Dropdown -->
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown">
+
+                            <i class="bi bi-person"></i>
+                            Account
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="{% url 'profile' %}">
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item text-danger"
+                                href="{% url 'logout' %}">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Logout
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-light ms-lg-2"
+                        href="{% url 'register' %}">
+                            Get Started
+                        </a>
+                    </li>
+
+            {% endif %}
+
+
+
+
+            </ul>
+
+
+        </div>
+
+
+    </div>
+
+
+</nav>
+
+
+
+
+<!-- MAIN CONTENT -->
+
+
+<div class="container mt-4">
+
+
+    {% if messages %}
+
+
+        {% for message in messages %}
+
+
+        <div class="alert alert-success alert-dismissible fade show">
+
+
+            {{ message }}
+
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+
+            </button>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% endif %}
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+</div>
+
+
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

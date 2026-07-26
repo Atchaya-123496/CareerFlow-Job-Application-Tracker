@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Welcome, {{ request.user.username }} 👋</h2>
+            <p class="text-muted">Manage all your job applications in one place.</p>
+        </div>
+
+        <a href="/tracker/add-job/" class="btn btn-primary btn-lg">
+            ➕ Add New Job
+        </a>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="GET" class="mb-4">
+
+        <div class="input-group">
+
+            <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    placeholder="Search for companies or job roles...">
+
+            <button class="btn btn-primary">
+                🔍Search
+            </button>
+
+            <a href="/tracker/dashboard/" class="btn btn-secondary">
+                   Reset
+            </a>
+
+        </div>
+
+    </form>
+
+    <!-- Dashboard Cards -->
+
+    <div class="row">
+
+        <div class="col-md-3 mb-4">
+            <div class="card shadow border-0 text-center p-3">
+                <h5>📄 Applied</h5>
+                <h2>{{ applied }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card shadow border-0 text-center p-3">
+                <h5>🎯 Interview</h5>
+                <h2>{{ interview }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card shadow border-0 text-center p-3">
+                <h5>🎉 Selected</h5>
+                <h2>{{ selected }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card shadow border-0 text-center p-3">
+                <h5>❌ Rejected</h5>
+                <h2>{{ rejected }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Job Table -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">My Job Applications</h4>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for job in jobs %}
+
+                    <tr>
+
+                        <td>{{ job.company_name }}</td>
+                        <td>{{ job.job_role }}</td>
+                        <td>{{ job.location }}</td>
+                        <td>{{ job.salary }}</td>
+                        <td>
+
+                        <span class="badge bg-primary">
+                            {{ job.status }}
+                        </span>
+
+                        {% if job.status == "Interview Scheduled" %}
+
+                            <div class="mt-2">
+
+                                {% if job.interview_date %}
+                                    <small class="d-block">
+                                        📅 {{ job.interview_date }}
+                                    </small>
+                                {% endif %}
+
+                                {% if job.interview_time %}
+                                    <small class="d-block">
+                                        🕒 {{ job.interview_time }}
+                                    </small>
+                                {% endif %}
+
+                                {% if job.interview_link %}
+                                    <small class="d-block">
+                                        <a href="{{ job.interview_link }}" target="_blank">
+                                            🔗 Join Interview
+                                        </a>
+                                    </small>
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                        {% if job.offer_letter %}
+
+                                <div class="mt-2">
+
+                                    <a href="{{ job.offer_letter.url }}"
+                                    target="_blank"
+                                    class="btn btn-success btn-sm">
+
+                                        📄 View Offer Letter
+
+                                    </a>
+
+                                </div>
+
+                        {% endif %}
+
+                    </td>
+                        <td>{{ job.applied_date }}</td>
+
+                        <td>
+
+                            <a href="/tracker/edit-job/{{ job.id }}/"
+                               class="btn btn-warning btn-sm">
+                                ✏️
+                            </a>
+
+                            <a href="/tracker/delete-job/{{ job.id }}/"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this job?')">
+                                🗑️
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="7" class="text-center text-muted">
+                            No Job Applications Found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

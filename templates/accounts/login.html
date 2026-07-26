@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+
+    <div class="col-lg-5 col-md-7">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-body p-5">
+
+                <div class="text-center mb-4">
+
+                    <i class="bi bi-person-circle display-3 text-primary"></i>
+
+                    <h2 class="fw-bold mt-3">
+                        Welcome Back 👋
+                    </h2>
+
+                    <p class="text-muted">
+                        Login to access your CareerFlow dashboard.
+                    </p>
+
+                </div>
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            placeholder="Enter your username"
+                            required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+                    <button class="btn btn-primary w-100 btn-lg">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+
+                    </button>
+
+                </form>
+
+                <hr>
+
+                <div class="text-center">
+
+                    <p class="mb-0">
+
+                        Don't have an account?
+
+                        <a href="/register/" class="fw-bold text-decoration-none">
+                            Register Here
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
