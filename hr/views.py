@@ -45,11 +45,21 @@ def view_candidate(request, id):
 
         # Status Update Form
         if "status" in request.POST:
+            old_status = job.status
+
+            new_status = request.POST.get("status")
+
+            if old_status != new_status:
+                job.notification_read = False
+
+            job.status = new_status
 
             job.status = request.POST.get("status")
             job.interview_date = request.POST.get("interview_date") or None
             job.interview_time = request.POST.get("interview_time") or None
             job.interview_link = request.POST.get("interview_link")
+            job.notification_read = False
+            print("Notification after:", job.notification_read)
 
             job.save()
 

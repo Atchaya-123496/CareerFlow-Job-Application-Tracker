@@ -100,14 +100,18 @@
                             </a>
                         </li>
 
-                        <!-- Notifications -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'notifications' %}">
-                                <i class="bi bi-bell"></i>
-                                Notifications
-                            </a>
-                        </li>
+                       <li class="nav-item">
+                                <a class="nav-link position-relative" href="{% url 'notifications' %}">
+                                    <i class="bi bi-bell"></i>
+                                    Notifications
 
+                                    {% if unread_notifications > 0 %}
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ unread_notifications }}
+                                    </span>
+                                    {% endif %}
+                                </a>
+                        </li>
                         <!-- Profile -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'profile' %}">
@@ -144,12 +148,20 @@
 
                         <!-- Notifications -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'notifications' %}">
+                            <a class="nav-link position-relative"
+                            href="{% url 'notifications' %}">
+
                                 <i class="bi bi-bell"></i>
                                 Notifications
+
+                                {% if unread_notifications > 0 %}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ unread_notifications }}
+                                </span>
+                                {% endif %}
+
                             </a>
                         </li>
-
                     {% endif %}
 
                     <!-- Account Dropdown -->

@@ -15,6 +15,7 @@ class JobApplication(models.Model):
     blank=True,
     null=True
 )
+    notification_read = models.BooleanField(default=False)
 
     user = models.ForeignKey(
         User,

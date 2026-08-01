@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^v)ubgvdtwh*@*v)r6h5!3*5e)w=pluevly)dz%soz6ranw7bs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "tracker.context_processors.notification_count",
             ],
         },
     },
@@ -125,6 +126,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media Files
 MEDIA_URL = "/media/"

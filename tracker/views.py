@@ -35,6 +35,7 @@ def dashboard(request):
         "interview": jobs.filter(status="Interview Scheduled").count(),
         "selected": jobs.filter(status="Selected").count(),
         "rejected": jobs.filter(status="Rejected").count(),
+        "unread_notifications": jobs.filter(notification_read=False).count(),
     }
 
     return render(
@@ -152,40 +153,32 @@ def delete_job(request, id):
 @login_required
 def notifications(request):
 
-    jobs = JobApplication.objects.filter(
-        user=request.user
-    )
+    jobs = JobApplication.objects.filter(user=request.user)
 
     notifications = []
 
     for job in jobs:
 
         if job.status == "Interview Scheduled":
-
-            notifications.append(
-                {
-                    "title": "Interview Scheduled",
-                    "message": f"{job.company_name} has scheduled your interview."
-                }
-            )
+            notifications.append({
+                "title": "Interview Scheduled",
+                "message": f"{job.company_name} has scheduled your interview."
+            })
 
         elif job.status == "Selected":
-
-            notifications.append(
-                {
-                    "title": "Congratulations 🎉",
-                    "message": f"{job.company_name} has sent your offer letter."
-                }
-            )
+            notifications.append({
+                "title": "Congratulations 🎉",
+                "message": f"{job.company_name} has sent your offer letter."
+            })
 
         elif job.status == "Rejected":
+            notifications.append({
+                "title": "Application Update",
+                "message": f"Your application at {job.company_name} was rejected."
+            })
 
-            notifications.append(
-                {
-                    "title": "Application Update",
-                    "message": f"Your application at {job.company_name} was rejected."
-                }
-            )
+    # 👇 Notifications read
+    jobs.update(notification_read=True)
 
     return render(
         request,
